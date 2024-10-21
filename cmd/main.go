@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strings"
 
 	"github.com/caseyleask/rem-e/consoleinteraction"
@@ -10,7 +10,7 @@ import (
 )
 
 func readFile(file string) []string {
-	dat, err := ioutil.ReadFile(file)
+	dat, err := os.ReadFile(file)
 
 	if err != nil {
 		panic(err)
@@ -25,7 +25,9 @@ func runFromFile(file string) {
 	lines := readFile(file)
 	commands := robot.ConvertLinesToCommands(lines)
 
-	println(fmt.Sprintf("%v", commands))
+	for _, command := range commands {
+		println(fmt.Sprintf("%#v", command))
+	}
 }
 
 // Parse external input
